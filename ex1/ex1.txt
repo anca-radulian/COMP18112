@@ -1,0 +1,81 @@
+
+The code when I typed "HELLO" in telnet. It gives this error because this is
+not the way of communicating with this web-server.
+
+<head>
+<title>Error response</title>
+</head>
+<body>
+<h1>Error response</h1>
+<p>Error code 400.
+<p>Message: Bad request syntax ('HELLO').
+<p>Error code explanation: 400 = Bad request syntax or unsupported method.
+</body>
+
+-----------------------------------------------------------------------------
+
+The response I got when typed "GET / ". Beacuse I haven't specified a file it
+gave all the files in that folder in a html list.
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"><html>
+<title>Directory listing for /</title>
+<body>
+<h2>Directory listing for /</h2>
+<hr>
+<ul>
+<li><a href="index.php">index.php</a>
+<li><a href="mystyles.css">mystyles.css</a>
+<li><a href="page1.html">page1.html</a>
+<li><a href="page1.html.lp-tmp.ps">page1.html.lp-tmp.ps</a>
+<li><a href="page1.html.lp%7E">page1.html.lp~</a>
+<li><a href="page2.php">page2.php</a>
+<li><a href="welcome.html">welcome.html</a>
+<li><a href="welcome.html.lp-tmp.ps">welcome.html.lp-tmp.ps</a>
+<li><a href="welcome.html.%7E">welcome.html.~</a>
+<li><a href="welcome.php">welcome.php</a>
+</ul>
+<hr>
+</body>
+</html>
+
+-----------------------------------------------------------------------------
+The result from typing " GET /welcome.html". It is exactly the code from that
+html file from COMP101 folder.
+
+<!DOCTYPE html>
+<!-- Form code was taken from w3school -->
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="mystyles.css" rel="stylesheet" />
+  </head>
+  <body>
+      
+    <h1 id="title"> See if you are member of group Y6 </h1>
+    <form action="page2.php" method="get">
+      <h4>Name:</h4>
+      <input type="text" name="name" ><br>
+      <h4>E-mail address:</h4>
+      <input type="text" name="email"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+    <p> To read more about the software used and reference visit :</p>
+    <a href="page1.html">Implementation page</a> 
+  </body>
+</html>
+
+-----------------------------------------------------------------------------
+
+The response from typing "GET /index.html", a file that doesn't exist in that folder.
+
+<head>
+<title>Error response</title>
+</head>
+<body>
+<h1>Error response</h1>
+<p>Error code 404.
+<p>Message: File not found.
+<p>Error code explanation: 404 = Nothing matches the given URI.
+</body>
+
+-----------------------------------------------------------------------------
