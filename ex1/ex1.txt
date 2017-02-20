@@ -1,6 +1,6 @@
 
 The code when I typed "HELLO" in telnet. It gives this error because this is
-not the way of communicating with this web-server.
+not the way to communicate with this web-server.
 
 <head>
 <title>Error response</title>
@@ -50,7 +50,7 @@ html file from COMP101 folder.
     <link type="text/css" href="mystyles.css" rel="stylesheet" />
   </head>
   <body>
-      
+
     <h1 id="title"> See if you are member of group Y6 </h1>
     <form action="page2.php" method="get">
       <h4>Name:</h4>
@@ -60,7 +60,7 @@ html file from COMP101 folder.
       <input type="submit" value="Submit">
     </form>
     <p> To read more about the software used and reference visit :</p>
-    <a href="page1.html">Implementation page</a> 
+    <a href="page1.html">Implementation page</a>
   </body>
 </html>
 
@@ -79,3 +79,9 @@ The response from typing "GET /index.html", a file that doesn't exist in that fo
 </body>
 
 -----------------------------------------------------------------------------
+
+The error 301 : Your Web server thinks that your URL has been permanently
+redirected to another URL. The client system is expected to immediately retry
+the alternate URL.
+
+Source : http://www.checkupdown.com/status/E301.html
