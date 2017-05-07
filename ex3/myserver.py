@@ -25,29 +25,56 @@ class MyServer(Server):
 
 
 		# Act upon REGISTER message
+
 		if command == 'REGISTER':
-			socket.screenName = parameter
-			#Save the screen name and the socket as a pair
-			pair = (socket.screenName, socket)
-			self.users.append(pair)
-			socket.send("You have registered as " + socket.screenName)
+			used = False
+			for user in self.users:
+				if parameter == user[0]:
+					used = True
+					socket.send("Please choose another name using command REGISTER")
+					print self.users
+
+			if used == False and socket.screenName != None:
+				for user in self.users:
+					if user[0] == socket.screenName:
+						self.users.remove(user)
+				socket.screenName = parameter
+				pair = (socket.screenName, socket)
+				self.users.append(pair)
+				socket.send("You have registered as " + socket.screenName)
+			if used == False and socket.screenName == None:
+				socket.screenName = parameter
+				#Save the screen name and the socket as a pair
+				pair = (socket.screenName, socket)
+				self.users.append(pair)
+				socket.send("You have registered as " + socket.screenName)
+
+
+
 
 		#print self.users
 
 		# Sending a message to everyone( MESSAGE command)
-		elif command == 'MESSAGE':
-			for user in self.users:
-				user[1].send(socket.screenName + ": " + parameter)
+		elif command == 'MESSAGE' and socket.screenName != None:
+			if parameter == 'logout':
+				return False
+			else:
+				for user in self.users:
+					user[1].send(socket.screenName + ": " + parameter)
 
 		else:
 			for user in self.users:
-				if command == user[0]:
+				if command == user[0] and socket.screenName != None:
 					user[1].send("Private message from " + socket.screenName + ": " + parameter)
 		# Signify all is well
 		return True
 
 	def onDisconnect(self, socket):
 		self.noOfClients = self.noOfClients - 1
+		for user in self.users:
+			if user[0] == socket.screenName:
+				self.users.remove(user)
+
 		print "A user has disconnected."
 		print "Number of clients on server: " + str(self.noOfClients)
 
