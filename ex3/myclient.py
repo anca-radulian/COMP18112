@@ -8,12 +8,59 @@ import sys
 from ex3utils import Client
 
 import time
+# GUI
+import Tkinter
+from Tkinter import *
+import tkMessageBox
 
+# Create the window
+top = Tkinter.Tk()
+
+# Add a text box to the gui
+text = Text(top)
+text.pack(side=TOP)
+
+# Add entry field
+e1 = Entry(top, bd=5)
+e1.pack(side=LEFT)
+
+# Toggle private button
+def toggle():
+	if b2.config('relief')[-1] == 'sunken':
+		b2.config(relief="raised")
+	else:
+		b2.config(relief="sunken")
+
+# Send a message
+def submit():
+	if e1.get() == 'logout':
+		client.stop()
+		top.quit()
+		top.destroy()
+	elif b2.config('relief')[-1] == 'sunken':
+		client.send(e1.get())
+		e1.delete(0, END)
+	elif e1.get().split(" ")[0] == "REGISTER":
+		client.send(e1.get())
+		e1.delete(0, END)
+	else :
+		client.send('MESSAGE ' + e1.get())
+		e1.delete(0, END)
+
+
+# Add buttons
+b1 = Button(top, text='Send', command=submit)
+b1.pack(side=LEFT)
+
+b2 = Button(top, text='Private', command=toggle, relief="raised" )
+b2.pack(side=LEFT)
 
 class IRCClient(Client):
 
 	def onMessage(self, socket, message):
 	# *** process incoming messages here ***
+		text.config(state=NORMAL)
+		text.insert(INSERT, message + "\n")
 		return True
 
 
@@ -31,18 +78,5 @@ client.start(ip, port)
 # *** register your client here, e.g. ***
 client.send('REGISTER %s' % screenName)
 
-while client.isRunning():
-	try:
-		command = raw_input("").strip()
-		if command.split(' ')[0] == 'PRIVATE':
-			message = raw_input('Please type the private message: \n')
-			client.send(command.split(' ')[1] + " " + message)
-		else:
-			client.send('MESSAGE ' + command)
-
-		# *** process input from the user in a loop here ***
-		# *** use client.send(someMessage) to send messages to the server
-	except:
-		client.stop();
-
+top.mainloop()
 client.stop()

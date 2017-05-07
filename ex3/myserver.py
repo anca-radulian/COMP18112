@@ -23,7 +23,6 @@ class MyServer(Server):
 		print "New message received."
 		(command, sep, parameter) = message.strip().partition(' ')
 
-
 		# Act upon REGISTER message
 
 		if command == 'REGISTER':
@@ -31,8 +30,9 @@ class MyServer(Server):
 			for user in self.users:
 				if parameter == user[0]:
 					used = True
-					socket.send("Please choose another name using command REGISTER")
-					print self.users
+					socket.send("Please choose another name using "
+					 			+ "command REGISTER")
+				
 
 			if used == False and socket.screenName != None:
 				for user in self.users:
@@ -50,10 +50,6 @@ class MyServer(Server):
 				socket.send("You have registered as " + socket.screenName)
 
 
-
-
-		#print self.users
-
 		# Sending a message to everyone( MESSAGE command)
 		elif command == 'MESSAGE' and socket.screenName != None:
 			if parameter == 'logout':
@@ -65,10 +61,12 @@ class MyServer(Server):
 		else:
 			for user in self.users:
 				if command == user[0] and socket.screenName != None:
-					user[1].send("Private message from " + socket.screenName + ": " + parameter)
+					user[1].send("Private message from " + socket.screenName
+								  + ": " + parameter)
 		# Signify all is well
 		return True
 
+	# Delete the user from the list after disconnecting
 	def onDisconnect(self, socket):
 		self.noOfClients = self.noOfClients - 1
 		for user in self.users:
